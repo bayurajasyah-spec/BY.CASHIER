@@ -1,7 +1,4 @@
-const publishableKey = (
-  import.meta.env.VITE_CLERK_PUBLISHABLE_KEY ||
-  import.meta.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-)?.trim();
+const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY?.trim();
 
 if (!publishableKey) {
   throw new Error("Clerk belum dikonfigurasi. Tambahkan VITE_CLERK_PUBLISHABLE_KEY (pk_test_... atau pk_live_...). Jangan masukkan CLERK_SECRET_KEY di aplikasi Figma/Vite.");
