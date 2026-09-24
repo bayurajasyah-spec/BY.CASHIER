@@ -16,6 +16,11 @@ const FIGMA_ASSET_PREFIX = 'figma:asset/'
 export default defineConfig(async (env) =>
   mergeConfig(await resolveUserConfig(env), {
     base: process.env.FIGMA_PUBLIC_URL ? `${process.env.FIGMA_PUBLIC_URL}/` : '/',
+    define: {
+      'import.meta.env.VITE_CLERK_PUBLISHABLE_KEY': JSON.stringify(
+        process.env.VITE_CLERK_PUBLISHABLE_KEY || process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY || '',
+      ),
+    },
     build: {
       sourcemap: env.mode === 'development' ? 'inline' : false,
       minify: env.mode !== 'development',

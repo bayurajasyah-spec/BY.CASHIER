@@ -24,6 +24,19 @@ app.get("/make-server-df04cfb8/health", (c) => {
   return c.json({ status: "ok" });
 });
 
+app.get("/make-server-df04cfb8/clerk/status", async (c) => {
+  const secretKey = Deno.env.get("CLERK_SECRET_KEY");
+  if (!secretKey) return c.json({ configured: false, error: "CLERK_SECRET_KEY belum tersedia di server." }, 503);
+
+  const response = await fetch("https://api.clerk.com/v1/instance", {
+    headers: { Authorization: `Bearer ${secretKey}` },
+  });
+
+  if (!response.ok) return c.json({ configured: false, error: "CLERK_SECRET_KEY ditolak Clerk." }, 502);
+  const instance = await response.json();
+  return c.json({ configured: true, instanceId: instance.id, environment: instance.environmentType });
+});
+
 type Voucher = {
   id: string;
   name: string;
