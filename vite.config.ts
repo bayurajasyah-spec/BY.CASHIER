@@ -10,6 +10,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  // Clerk's connected integration provides NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.
+  // Allow Vite to expose that public key without exposing any secret key.
+  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
   resolve: {
     alias: {
       // Alias @ to the src directory
